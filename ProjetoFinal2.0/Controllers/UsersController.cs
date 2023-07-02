@@ -19,7 +19,12 @@ namespace ECommerce.Controllers
             var cities = db.Cities.Where(c => c.DepartamentsId == departmentId);
             return Json(cities);
         }
-
+        public JsonResult GetCompany(int cityId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var cities = db.Companies.Where(c => c.CityId == cityId);
+            return Json(cities);
+        }
 
 
 
