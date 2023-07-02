@@ -1,19 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using ProjetoFinal2._0.Classes;
+using ProjetoFinal2._0.Models;
+using System;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using ProjetoFinal2._0.Classes;
-using ProjetoFinal2._0.Models;
 
-namespace ProjetoFinal2._0.Controllers
+namespace ECommerce.Controllers
 {
+    //[Authorize(Roles = "User , Admin")]
     public class OrdersController : Controller
     {
         private ProjetoContext db = new ProjetoContext();
+
+
+        public ActionResult InventoryValidate()
+        {
+            var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
+
+            if (user == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            var products = db.Products.Include(p => p.Category).
+                Include(p => p.Tax).
+                Where(c => c.CompanyId == user.CompanyId);
+
+            return View(products.ToList());
+        }
+
+
 
 
         public ActionResult DeleteProduct(int? id)
@@ -30,6 +47,11 @@ namespace ProjetoFinal2._0.Controllers
                 return HttpNotFound();
             }
             db.OrderDetailTmp.Remove(orderDetailTmps);
+
+            var quantity = orderDetailTmps.Quantity;
+            var inventory = db.Inventories.Where(i => i.ProductId == orderDetailTmps.ProductId).FirstOrDefault();
+            inventory.Stock += quantity;
+
             db.SaveChanges();
             return RedirectToAction("Create");
         }
@@ -47,7 +69,7 @@ namespace ProjetoFinal2._0.Controllers
 
         //ADD PRODUTOS POST
         [HttpPost]
-        public ActionResult AddProduct(AddProductView view)
+        public ActionResult AddProduct(AddProductViewVendas view)
         {
             var user = db.Users.Where(u => u.UserName == User.Identity.Name).FirstOrDefault();
 
@@ -78,12 +100,23 @@ namespace ProjetoFinal2._0.Controllers
                     db.Entry(orderDetailTmps).State = EntityState.Modified;
 
                 }
-                db.SaveChanges();
-                return RedirectToAction("Create");
 
+                var quantity = view.Quantity;
+                var inventory = db.Inventories.Where(i => i.ProductId == view.ProductId).FirstOrDefault();
+                inventory.Stock -= quantity;
+
+                if (orderDetailTmps.Product.Stock >= 0)
+                {
+                    db.SaveChanges();
+                    return RedirectToAction("Create");
+                }
+                else
+                {
+                    return RedirectToAction("InventoryValidate");
+                }
             }
 
-            ViewBag.ProdutoId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
+            ViewBag.ProductId = new SelectList(CombosHelper.GetProducts(user.CompanyId), "ProductId", "Description");
             return PartialView();
         }
 

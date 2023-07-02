@@ -10,7 +10,7 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.Date)
 
 
 
@@ -31,188 +31,186 @@
                 </div>
 
 
-
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        <div class='input-group date' id='datepicker' style="width:280px">
-                            @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                            <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                            </span>
-                        </div>
-                        @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                    </div>
+                <!--
+        <div class="form-group">
+            @Html.LabelFor(model => model.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class='input-group date' id='datepicker' style="width:280px">
+                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
                 </div>
-
-
-
-            </div>
-
-            <div class="col-md-6">
-                <div class="form-group">
-                    @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Criar Ordem" class="btn btn-success" />
-                        @Html.ActionLink("Add Produto", "AddProduct", "Orders", new { }, new { @class = "dialog-window btn btn-info" })
-                        @Html.ActionLink("Voltar", "Index", new { }, new { @class = "btn btn-warning" })
-                    </div>
-                </div>
+                @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
             </div>
         </div>
 
+         -->
+
+            </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Remarks, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Remarks, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Remarks, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Criar Ordem" class="btn btn-success" />
+                            @Html.ActionLink("Add Produto", "AddProduct", "Orders", new { }, new { @class = "dialog-window btn btn-info" })
+                            @Html.ActionLink("Voltar", "Index", new { }, new { @class = "btn btn-warning" })
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
+
+
+        </div>
+    }
+
+    <div>
 
     </div>
-}
-
-<div>
-
-</div>
 
 
-<h4>Produtos Adicionados</h4>
-<hr />
+    <h4>Produtos Adicionados</h4>
+    <hr />
 
-@if (Model.Details.Count == 0)
-{
-    <h5>Não existe nenhum detalhe</h5>
-}
-else
-{
-    <table class="table">
-        <tr>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].Product.Image)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].Description)
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].TaxRate)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].Price)
-            </th>
-
-            <th>
-                Estoque
-            </th>
-
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].Quantity)
-            </th>
-
-
-            <th>
-                @Html.DisplayNameFor(model => model.Details[0].Value)
-            </th>
-
-
-
-            <th></th>
-        </tr>
-
-        @foreach (var item in Model.Details)
-        {
+    @if (Model.Details.Count == 0)
+    {
+        <h5>Não existe nenhum detalhe</h5>
+    }
+    else
+    {
+        <table class="table">
             <tr>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.Product.Image))
-                    {
-                        <img src="@Url.Content(item.Product.Image)" alt="Image" style="width:40px;height:40px;max-width: 100%; height: auto;" />
 
-                    }
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].Product.Image)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].Description)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TaxRate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Price)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].TaxRate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].Price)
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Product.Stock)
-                </td>
+                <th>
+                    Estoque
+                </th>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Quantity)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].Quantity)
+                </th>
 
 
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.Value)
-                </td>
+                <th>
+                    @Html.DisplayNameFor(model => model.Details[0].Value)
+                </th>
 
 
 
-                <td>
-
-                    @Html.ActionLink("Excluir", "DeleteProduct", new { id = item.ProductId }, new { @class = "btn btn-danger", onclick = "return confirm('Deseja excluir o Produto?')" })
-                </td>
+                <th></th>
             </tr>
 
-        }
+            @foreach (var item in Model.Details)
+            {
+                <tr>
+                    <td>
+                        @if (!string.IsNullOrEmpty(item.Product.Image))
+                        {
+                            <img src="@Url.Content(item.Product.Image)" alt="Image" style="width:40px;height:40px;max-width: 100%; height: auto;" />
 
-        <tr>
-            <td colspan="5" align="right">
-                <strong>Total</strong>
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => Model.TotalQuantity)
-            </td>
+                        }
+                    </td>
 
-            <td>
-                @Html.DisplayFor(modelItem => Model.TotalValue)
-            </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Description)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TaxRate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Price)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Product.Stock)
+                    </td>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantity)
+                    </td>
 
 
-        </tr>
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value)
+                    </td>
+
+
+
+                    <td>
+
+                        @Html.ActionLink("Excluir", "DeleteProduct", new { id = item.ProductId }, new { @class = "btn btn-danger", onclick = "return confirm('Deseja excluir o Produto?')" })
+                    </td>
+                </tr>
+
+            }
+
+            <tr>
+                <td colspan="5" align="right">
+                    <strong>Total</strong>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => Model.TotalQuantity)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => Model.TotalValue)
+                </td>
+
+
+            </tr>
 
 
 
 
-    </table>
-}
+        </table>
+    }
 
 
-<div class="modal fade" id="AddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-
-     hidden="true" data-backdrop="false">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h2 class="modal-title"></h2>
+    <div class="modal fade" id="AddProduct" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-
+         hidden="true" data-backdrop="false">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h2 class="modal-title"></h2>
+                </div>
+                <div class="modal-body"><div class="te">Espere por Favor...</div></div>
             </div>
-            <div class="modal-body"><div class="te">Espere por Favor...</div></div>
         </div>
     </div>
-</div>
 
 
 
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-    <script type="text/javascript">
-    $(function () {
-        $('#datepicker').datetimepicker({ format: 'DD/MM/YYYY' });
-            });
+    @section Scripts {
+        @Scripts.Render("~/bundles/jqueryval")
+        <script type="text/javascript">
+            
 
 
             $(document).ready(function () {
@@ -234,16 +232,12 @@ else
                     }
                 });
             });
-        
-        $(function () {
-            $.validator.methods.date = function (value, element) {
-                return this.optional(element) || moment(value, "DD/MM/YYYY", true).isValid();
-            }
-        });
+
+            
 
 
 
-    </script>
+        </script>
 
 
-}
+    }

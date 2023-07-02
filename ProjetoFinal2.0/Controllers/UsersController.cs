@@ -1,32 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using ProjetoFinal2._0.Classes;
+﻿using ProjetoFinal2._0.Classes;
+using ProjetoFinal2._0.Models;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-
 using System.Web.Mvc;
-using ProjetoFinal2._0.Models;
 using static ProjetoFinal2._0.Classes.UserHelper;
 
-namespace ProjetoFinal2._0.Controllers
+namespace ECommerce.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
         private ProjetoContext db = new ProjetoContext();
 
-        public JsonResult GetCities(int departmentId)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var cities = db.Cities.Where(c => c.DepartamentsId == departmentId);
-            return Json(cities);
-        }
-        public JsonResult GetCompany(int cityId)
-        {
-            db.Configuration.ProxyCreationEnabled = false;
-            var companies = db.Companies.Where(c => c.CityId == cityId);
-            return Json(companies);
-        }
 
 
 

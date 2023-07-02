@@ -233,7 +233,7 @@ namespace ProjetoFinal2._0.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "PurchaseId,ProviderId,CompanyId,StateId,Date,Remarks")] Purchase purchase)
+        public ActionResult Edit(Purchase purchase)
         {
             if (ModelState.IsValid)
             {
