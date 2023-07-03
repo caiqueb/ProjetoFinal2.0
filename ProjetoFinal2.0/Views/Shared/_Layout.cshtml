@@ -17,46 +17,52 @@
 
     <script>
 
-    $.validator.methods.number = function (value, element) {
-        var val = Globalize.parseFloat(value);
-        return this.optional(element) ||
-            (val);
-    }
+        $.validator.methods.number = function (value, element) {
+            var val = Globalize.parseFloat(value);
+            return this.optional(element) ||
+                (val);
+        }
 
-    $.validator.methods.date = function (value, element) {
-        var val = Globalize.parseDate(value);
-        return this.optional(element) ||
-            (val);
-    }
+        $.validator.methods.date = function (value, element) {
+            var val = Globalize.parseDate(value);
+            return this.optional(element) ||
+                (val);
+        }
 
-    $(function () {
+        $(function () {
 
-        Globalize.culture('pt-BR');
+            Globalize.culture('pt-BR');
 
-        jQuery.extend(jQuery.validator.methods, {
-            range: function (value, element, param) {
-                //Use the Globalization plugin to parse the value
-                var val = Globalize.parseFloat(value);
-                return this.optional(element) || (
-                    val >= param[0] && val <= param[1]);
-            }
+            jQuery.extend(jQuery.validator.methods, {
+                range: function (value, element, param) {
+                    //Use the Globalization plugin to parse the value
+                    var val = Globalize.parseFloat(value);
+                    return this.optional(element) || (
+                        val >= param[0] && val <= param[1]);
+                }
+            });
+
         });
-
-    });
     </script>
 
 </head>
 <body>
+    <br />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <a class="navbar-brand" href="/">
+                    <img id="logo" alt="Logo" src="~/imagens/logo2.png" width=100% height=180% />
+                </a>
+            </div>
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ">
+
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("E-Commerce", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
+                @Html.ActionLink(" ", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Início", "Index", "Home")</li>
@@ -76,7 +82,7 @@
                         </li>
                     }
 
-                    @if ((User.IsInRole("User")) || (User.IsInRole("Admin")))
+                    @if ((User.IsInRole("User")))
                     {
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Loja<b class="caret"></b></a>
@@ -111,16 +117,38 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
-        </footer>
-    </div>
+        <!-- PLUGIN VLIBRAS-->
+        <div vw class="enabled">
+            <div vw-access-button class="active"></div>
+            <div vw-plugin-wrapper>
+                <div class="vw-plugin-top-wrapper"></div>
+            </div>
+        </div>
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+            new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @Scripts.Render("~/Scripts/jquery.validate.min.js")
-    @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
-    @Scripts.Render("~/Scripts/moment.js")
-    @RenderSection("scripts", required: false)
+       
+            <div class="container-fluid ">
+                <footer class="d-flex flex-wrap align-items-center">
+                    <div class="col-md-5 d-flex">
+                        <object type="image/svg+xml" data="/images/AC-icon-logo.svg" width="30" height="24" class="mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1" viewBox="0 0 16 16"></object>
+                        <span class="mb-3 mb-md-0 text-muted">© @DateTime.Now.Year - Smart-Edit</span>
+                    </div>
+                    
+
+</footer>
+
+              
+
+</div>
+
+            @Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")
+            @Scripts.Render("~/Scripts/jquery.validate.min.js")
+            @Scripts.Render("~/Scripts/jquery.validate.unobtrusive.min.js")
+            @Scripts.Render("~/Scripts/moment.js")
+            @RenderSection("scripts", required: false)
 </body>
 </html>

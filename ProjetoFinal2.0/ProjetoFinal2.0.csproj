@@ -255,6 +255,17 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="imagens\armazen.png" />
+    <Content Include="imagens\categorias.png" />
+    <Content Include="imagens\clientes.png" />
+    <Content Include="imagens\compras.png" />
+    <Content Include="imagens\fornecedor.png" />
+    <Content Include="imagens\imposto.png" />
+    <Content Include="imagens\logo1.png" />
+    <Content Include="imagens\logo2.png" />
+    <Content Include="imagens\logo3.png" />
+    <Content Include="imagens\produtos.png" />
+    <Content Include="imagens\vendas.png" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

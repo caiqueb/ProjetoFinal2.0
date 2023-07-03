@@ -146,7 +146,6 @@ namespace ECommerce.Controllers
             }
             return View(orders);
         }
-
         // GET: Orders/Create
         public ActionResult Create()
         {
@@ -160,6 +159,8 @@ namespace ECommerce.Controllers
 
             return View(view);
         }
+
+
 
         // POST: Orders/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 

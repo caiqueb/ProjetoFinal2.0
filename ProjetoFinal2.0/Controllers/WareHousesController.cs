@@ -11,9 +11,12 @@ namespace ECommerce.Controllers
     public class WareHousesController : Controller
     {
         private ProjetoContext db = new ProjetoContext();
-
-
-
+        public JsonResult GetCities(int departmentId)
+        {
+            db.Configuration.ProxyCreationEnabled = false;
+            var cities = db.Cities.Where(c => c.DepartamentsId == departmentId);
+            return Json(cities);
+        }
 
 
         // GET: WareHouses
